@@ -1,0 +1,149 @@
+need to watch
+ ==> 2-8
+ ==> 3-6
+
+Ecosystem
+    - mongodb is company which provides mongodb datase-server.
+    - but it is not even provides `datase-server`, it provides many things
+        see:: D:\MURTAJA\LEARNING\mongo\PART-1\6.png
+
+
+- shell and driver
+
+        shell --> place where you established connect with mongodb server, and run the query.
+            ex:: mongo
+
+        driver --> driver could be package(library) for respective technology.
+        - it is used to connect technology with mongodb-server
+            ex:: nodejs(technology) --> mongodb(driver)
+        
+        NOTE THAT if you run query using either mongo shell or driver, both has same meaning(result), although syntext might be differ but produce same result.
+
+            All driver --> https://www.mongodb.com/docs/drivers/
+
+behind the scene
+
+    mongodb-server --> `storage engine` with `memory` --> Files
+
+    - so mongodb takes information(query) form `driver` or `shell`, and if the information is insert the document, it give this insert information with some other require data to `storage engine` and `storage engine` is responsible to insert the document in `Files`.
+    - it also use `memory` to read/write operation, bcs it much faster than `Files`
+
+    see:: 
+        D:\MURTAJA\LEARNING\mongo\PART-1\7.png
+        D:\MURTAJA\LEARNING\mongo\PART-1\8.png
+
+Implicitly creation
+
+    NOTE THAT in mongodb `db/collection/document` is created im Implicitly(on demand)
+        see:: D:\MURTAJA\LEARNING\mongo\PART-2\1.png
+
+create db, add collection init and insert document in collection
+    see: D:\MURTAJA\LEARNING\mongo\PART-2\3.png
+
+jsone and bson::
+    see: D:\MURTAJA\LEARNING\mongo\PART-2\4.png
+
+Do you know which places we could run query
+    see: D:\MURTAJA\LEARNING\mongo\PART-2\5.png
+
+general cmd
+    see: D:\MURTAJA\LEARNING\mongo\PART-2\5.png
+
+cursor::
+    - so keep in mind `find`, `findMany` return the cursor, and behind the scene shell keeps on fetching document using batchsize untill cursor exashted. 
+    - if you use toArray method on cursor, it fetchs all document from the db. <-- use heigh bandwidth
+    - but if you use foreach method on cursor, it fetchs document on each iteration.(so it recommaded) <<-- bandwidth optimized
+    see: D:\MURTAJA\LEARNING\mongo\PART-2\12.png
+
+projection
+    - means, include and exclude field <-- here we also optimized the bandwidth
+        see: D:\MURTAJA\LEARNING\mongo\PART-2\14.png
+        see: D:\MURTAJA\LEARNING\mongo\PART-2\15.png
+
+restriction
+    we can nest the document upto the 100 leve and size of document must have to be under 16mb
+        see: D:\MURTAJA\LEARNING\mongo\PART-2\16.png
+
+--------------------query screen-shot
+
+insertOne::
+    see: D:\MURTAJA\LEARNING\mongo\PART-3\5.png
+
+insertMany::
+    see: D:\MURTAJA\LEARNING\mongo\PART-2\6.png
+
+find, findOne::
+    find --> returns all matching documents(return cursor)
+    findOne --> returns only first matching documents(don't return cursor)
+        see: D:\MURTAJA\LEARNING\mongo\PART-2\7.png
+        see: D:\MURTAJA\LEARNING\mongo\PART-2\8.png
+
+update::
+    - you have to use operator($set) with updateOne, updateMany 
+    - but with update, you can update without operator($set), but it will replace the whole document with new one
+        see: D:\MURTAJA\LEARNING\mongo\PART-2\10.png
+    updateMany with Embedded document:
+        see: D:\MURTAJA\LEARNING\mongo\PART-2\18.png
+
+replace one
+    see: D:\MURTAJA\LEARNING\mongo\PART-2\11.png
+
+
+----------------knowledge
+
+- to run mongodb-server on diffrent port
+    shell
+        mongod --port [27018]
+- to connect mongo with mongodb-server on diffrent port
+    shell
+        mongo --port [27018]
+
+- prett()
+    - this is cursor method
+
+- NOTE THAT 
+    - only find, findMany return the cursor.
+    - but findOne doesn't return the cursor, bcs it returns only one document.
+    - like wise insert/delete methode don't return the cursor, bcs they only update/delete document rather than return. 
+
+schema::
+    - yes document don't have any schema restriction, you could insert any document with diffrent field within same collection.
+    - but it is recommaded to use some schema, otherwise it could be mess-up
+    see: D:\MURTAJA\LEARNING\mongo\PART-3\3.png
+    see: D:\MURTAJA\LEARNING\mongo\PART-3\4.png
+
+dataType::
+    - keep in mind if sees `ObjectId("kfjdkjfkdjsf)`, this is value with perfix `ObjectId`, and it indicates its type is `ObjectId`.
+        see:: D:\MURTAJA\LEARNING\mongo\PART-3\6.png
+    - add diffrent type of data
+        see:: D:\MURTAJA\LEARNING\mongo\PART-3\7.png
+        see:: D:\MURTAJA\LEARNING\mongo\PART-3\8.png
+
+shemas and modal::
+        - if document changes frequentally --> use ref
+        - if document doesn't change and strong one to one relationship --> use Embedded document
+        - if document changes frequentally, and dublicate data, but if you want old document to be not change --> use Embedded document
+        - keep in mind document modaling depends on your aaplication requirement.
+            - means how you fetch, insert
+            see:: D:\MURTAJA\LEARNING\mongo\PART-3\10.png
+
+    one to one with ref::
+        see:: D:\MURTAJA\LEARNING\mongo\PART-3\11.png
+        see:: D:\MURTAJA\LEARNING\mongo\PART-3\12.png
+
+    relation::
+        see:: D:\MURTAJA\LEARNING\mongo\PART-3\13.png
+    
+    $lookup::
+        - same as `join` from `mySql` world.
+        see:: D:\MURTAJA\LEARNING\mongo\PART-3\14.png
+        see:: D:\MURTAJA\LEARNING\mongo\PART-3\15.png
+        see:: D:\MURTAJA\LEARNING\mongo\PART-3\16.png <-- see `15.png` in pretty view
+
+    schema(document) validation::
+        - Yes we know that document could be flexible, you can add different field within same collection.
+        - but usally you can't do that, you insert document with same field.
+        - and to validate required field with required data-type's value, you can use schema validation
+            see:: D:\MURTAJA\LEARNING\mongo\PART-3\17.png
+            see:: D:\MURTAJA\LEARNING\mongo\PART-3\18.png
+
