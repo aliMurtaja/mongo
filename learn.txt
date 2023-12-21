@@ -147,3 +147,88 @@ shemas and modal::
             see:: D:\MURTAJA\LEARNING\mongo\PART-3\17.png
             see:: D:\MURTAJA\LEARNING\mongo\PART-3\18.png
 
+    
+- To change db(file storage) and `log` page 
+    see:: D:\MURTAJA\LEARNING\mongo\PART-4\2.png
+    
+    - if you set log path, you can't see any log text in shell, bcs by-default log are logged in shell
+        see:: D:\MURTAJA\LEARNING\mongo\PART-4\3.png
+
+- To start mongod server(background) and stop
+        cmd--> net start mongoDB <-- start
+            see:: D:\MURTAJA\LEARNING\mongo\PART-4\4.png <-- start
+            see:: D:\MURTAJA\LEARNING\mongo\PART-4\5.png <-- stop
+
+- MongoDB config file
+            see:: D:\MURTAJA\LEARNING\mongo\PART-4\6.png <-- start
+            file --> D:\MURTAJA\LEARNING\mongo\PART-4\mongod.cfg
+
+
+- INSERT
+
+    insertOne --> to insert the one document
+    insertMany --> to insert the many document
+        see:: 
+            see:: D:\MURTAJA\LEARNING\mongo\PART-6\4.png 
+
+    insert --> to insert the one or many document(both) <-- not recommaded
+            see:: D:\MURTAJA\LEARNING\mongo\PART-6\5.png 
+            see:: D:\MURTAJA\LEARNING\mongo\PART-6\6.png 
+        --> but insert are no longer use, bcs it doesn't clarify whether one document are inserted or many.
+        --> and as a result it doesn't give the info which document are saved (doesn't return the saved document _id)
+
+    - NOTE THAT only find, update and delete method have query but insert doesn't have, bcs it only insert the documents
+ 
+    - order::
+        - if you insert document with dublicate _id, it stops the further insertion.
+        - you can override this behaviour using second Object
+            {order: false}  // true, by-default
+            see:: D:\MURTAJA\LEARNING\mongo\PART-6\7.png 
+        NOTE THAT you can't roolback previouse document if they inserted if any Err occure while inserting (ex--> dublicate key)
+        - but we can change this behaviour also (more learn in transation module)
+
+    - Atomicity
+        - it means if any Err occure in current document, it simply roolback.
+        - but per ducument level, not insertMany.
+             `This is called Atomic transition`
+        - I mean, still you can't roolback back previouse inserted document, but the document in which Err happened, simply roolback.
+            see:: D:\MURTAJA\LEARNING\mongo\PART-6\8.png 
+
+    - To import the External data   
+        see:: D:\MURTAJA\LEARNING\mongo\PART-6\9.png 
+    
+    - insert summary
+        see:: D:\MURTAJA\LEARNING\mongo\PART-6\10.png 
+
+
+- READ
+
+    - NOTE THAT 
+        operatore
+           - there are lot of operators, and we can use those operators with any method(read/update/delete)
+
+           - filter operatore(selector) --> to filter the document in which we performe(read/update/delete)
+           - update operatore --> the operators specific to the update
+           - delete operatore --> the operators specific to the delete
+                see:: D:\MURTAJA\LEARNING\mongo\PART-7\2.png
+                see:: D:\MURTAJA\LEARNING\mongo\PART-7\3.png
+        
+        - projection & projection operator:
+            - NOTE THAT projection --> we use field with 0 and 1
+            - NOTE THAT projection operators --> we use operator with 0 and 1
+            - how the data should show
+            - see for more info: https://www.mongodb.com/docs/manual/reference/operator/query/
+            - see for more info: https://www.bmc.com/blogs/mongodb-projection-operators/
+
+    find & findOne::
+        - findOne() --> will returns the first document
+        - findOne({}) --> will returns the first document
+        - findOne({field: [val]}) --> will returns first matched document
+        - find() --> will returns all document(using batch and cursor)
+        - find({}) --> will returns all document(using batch and cursor)
+        - find({field: [val]}) --> will returns matched all document(using batch and cursor)
+            see:: D:\MURTAJA\LEARNING\mongo\PART-7\5.png
+            see:: D:\MURTAJA\LEARNING\mongo\PART-7\6.png
+        
+
+Test@123
